@@ -36,10 +36,16 @@
 # x | y   x OR y
 # x & y   x AND y
 
+3 > 4
+3 != 4
+
 ## Math functions / constants
 # log(x)  natural log or in specified base
 # exp(x)  exponential
-# pi      value of pu
+# pi      value of pi
+# mean(x) mean
+# var(x)  variance
+# sd(x)   standard deviation
 
 #-----------------------------------------------
 ## Creating variables
