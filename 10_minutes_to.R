@@ -1,5 +1,14 @@
 # 10 Minutes to R
 
+# click on "Environment" in upper right pane
+# Click on "Files" in lower right pane
+# Click on "10_minutes_to.R" in files pane to open
+# 10_minutes_to_R should open in upper left panel
+# Click back in Console tab on lower-left
+# Notice blinking cursor
+
+# <-- The pound/hash symbol means this line is a comment.
+
 #-----------------------------------------------
 ## R as a calculator
 2 + 2
@@ -8,13 +17,14 @@
 
 (50 - 5*6) / 4
 
-8/5
+8/5    # floating point math
 
 17/3
 
 2^8 
 
 17 %/% 3
+17 %% 3
 
 ## Operators
 # + addition
@@ -46,13 +56,23 @@
 # mean(x) mean
 # var(x)  variance
 # sd(x)   standard deviation
+# ...
+
+# function takes input and returns an output
+# name(argument)
+
+log(10)  # function is log, argument is 10
+         # functions are essential to using R.
+         # You don't need to program functions to use R, 
+         # but you do need to call functions.
+
 
 #-----------------------------------------------
-## Creating variables
-width = 20
-width
+## Storing values in variables
+width = 20     # does not print anything (try ls() or objects())
+width          # but variable was created (see Environment tab)
 height = 5 * 9
-width * height
+width * height # same as 20 * 45
 
 ls() # show the objects in memory
 widith = 10 #oops
@@ -72,18 +92,19 @@ ls()
 
 5           # numeric
 TRUE        # Boolean / Logical 
-"I Like R"  # character(s) / string
+
+"I like R"  # character(s) / string
+'I like R'  # single or double quotes
 
 # Data type determines what you can do with the data
 
 5 * 2 # perfectly sensible
 
-"I like R" 
-'I like R'  # single or double quotes
-
 "I like R" * 2  # nonsensical
 "I" + "like" + "R" # python style concat does not work
 paste("I", "like", "R")
+"aa" < "ab"
+"cc" > "cd"
 
 
 as.Date("2022-05-17")
@@ -94,7 +115,7 @@ yesterday
 this_day < yesterday  #? Was today before yesterday?
                       # Why did us "this_day" for today? (namespace)
                       # Will discuss in pain points sections
-format(as.Date("2022-05-17"), '%B %d %Y')
+format(as.Date("2022-05-17"), '%A %B %d %Y')  #POSIX  date formatting
 
 
 
@@ -127,7 +148,8 @@ my_vec
 my_vec[1]
 length(my_vec)
 my_vec[7]
-my_vec[1:3]  # ranges are 
+my_vec[1:3]  # ranges are inclusive
+
 
 # Most R operators and functions support vector input
 my_vec^2
@@ -136,24 +158,34 @@ my_vec * my_vec   # pairwise, vector multiplication
 
 # If you ask R to make a vector of mixed types,
 # R automatically (and silently) finds a common data type 
+# A string, a boolean and an integer go into a vector...
 mixed = c("R", TRUE, 10)
 mode(mixed)
 mixed # everything is string!
 
 mixed2 =c(1, 2, 3, TRUE)
 mode(mixed2)
-mixed2 # Boolean is now an int!
+mixed2 # Boolean is now an int! # as.logical(1) == TRUE
+
+# Vector of boolean values
+c(TRUE, TRUE, FALSE, TRUE) 
 
 
-?seq
+## Variety of functions to make sequences
+?seq # Try R's help for the seq function
+     # see the Help tab on the bottom-right panel
+
 seq(from=1, to=10, by=1)
 1:10
 my_seq = seq(from=1, to=10, by=1)
 
-c(TRUE, TRUE, FALSE, TRUE)
-my_seq %% 2 == 0
+# can make sequences from other sequences
+my_seq %% 2 == 0   # are the values in my_seq even?
 my_bool_vec = my_seq %% 2 == 0
 
+# boolean vectors can be used to subset
+my_seq
+my_seq[my_bool_vec]
 
 #-----------------------------------------------
 # matrix has two dimensions
@@ -161,6 +193,7 @@ vals = 1:9
 vals
 mat1 = matrix(vals, nrow = 3, byrow = TRUE)
 mat1
+mat1[1,3]  # index by row and column
 
 my_mat = my_vec %*% t(my_vec)
 mode(my_mat)
@@ -169,13 +202,18 @@ my_mat
 mat2 = matrix(c('a','b','c','d'), nrow=2)
 mat2
 
-# stack of vectors   --> matrix
+# stack of values   --> vector
+# stack of vectors  --> matrix
 # stack of matrices --> array
+
+# in general arrays are helpful for programming r
+# and less commonly used for data analysis
 
 #-----------------------------------------------
 # Mixed type containers
 
 ## list
+### allows mixed types - holds data values and containers
 ### Commonly used to hold results of a statistical analysis
 ### e.g. fitting a regression model returns a list-like model object
 
@@ -188,8 +226,8 @@ my_list = list(
 )
 my_list
 
-for (elem in my_list) {
-  print(class(elem))
+for (elem in my_list) {    # example of flow-control 
+  print(class(elem))       # see the Environment tab as well
 }
 
 my_list[[1]]          # first list item
@@ -207,14 +245,17 @@ my_list2
 my_list2$message     # "message" element
 my_list2$my_vec[1:3] # first 3 items from my_vec element
 
+# e.g. model$residuals
+
 ## Data Frames 
-### data.frame - familiar rows as cases and columns as variables format
+### data.frame - familiar format - rows as cases and columns as variables
 ### holds the same kind of data that would be stored in
-### an Excel sheet, CSV, Pandas DataFrame, etc 
+### an Excel spreadsheet, CSV, Pandas DataFrame, etc 
 
 ## data.frame is regular built-in data structure
+### common variations:
 ## data.table - adds large data features to data.frame 
-## tibble - frame-like with strict checking (less auto help)
+## tibble - frame-like with strict checking (less auto, convenience features)
 
 # similar syntax to lists, but columns should be same length
 ## a data.frame with three columns (id, age, height)
