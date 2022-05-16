@@ -7,7 +7,11 @@
 # Click back in Console tab on lower-left
 # Notice blinking cursor
 
+# A quick note about comments in *script* files
 # <-- The pound/hash symbol means this line is a comment.
+3 + 4 # comments can be an the end of a line.
+# no code after a comment! 3 + 4
+
 
 #-----------------------------------------------
 ## R as a calculator
@@ -29,7 +33,7 @@
 ## Operators
 # + addition
 # - subtraction
-# * multipliation
+# * multiplication
 # / division
 # ^ or ** exponentiation
 # x %% y modulus
@@ -46,10 +50,10 @@
 # x | y   x OR y
 # x & y   x AND y
 
-3 > 4
+3 > 4     # use run command instead of typing
 3 != 4
 
-## Math functions / constants
+## Math and Stats functions / constants
 # log(x)  natural log or in specified base
 # exp(x)  exponential
 # pi      value of pi
@@ -65,6 +69,13 @@ log(10)  # function is log, argument is 10
          # functions are essential to using R.
          # You don't need to program functions to use R, 
          # but you do need to call functions.
+
+
+# !!! Switch to notebook by this point
+## - constant attention switching between console and script
+## - not visually interesting
+## - comment style explanations are stunted
+## - where is this going? how much is left?
 
 
 #-----------------------------------------------

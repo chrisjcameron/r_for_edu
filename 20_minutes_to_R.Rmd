@@ -1,0 +1,495 @@
+---
+title: "20 Minutes to R"
+output: html_notebook
+---
+
+# R Notebook
+
+## R notebook supports *literate analysis*
+
+In *literate statistical analysis*, **documentation**, **specification**, **explanation**, **interpretation,** and **code** co-exist in a single document that presents the analysis process in a narrative format.
+
+In contrast to scripts, where code is the default kind of content and everything else must be shoe-horned into comments, the default notebook content is text.
+
+-   Code and results appear in specially designated content blocks.
+
+-   Text blocks support a range of formatting options via [R Markdown](https://rmarkdown.rstudio.com/lesson-1.html)
+
+### R Markdown
+
+Alternatively, use the ***Visual*** editor mode to insert these formats into the document.
+
+[Quick overview of formatting](https://rmarkdown.rstudio.com/lesson-8.html) options, including:
+
+> ``` {=}
+> Markdown provides an easy way to make standard types of formatted text, like
+>
+> - *italics*
+> - **bold**
+> - `code`
+> - [links](rmarkdown.rstudio.com)
+> - etc.
+>
+> But did you know that you can also use R Markdown's markdown to make
+>
+> - LaTeX equations, $E = mc^{2}$
+> - And bibliographies [@rmarkdown15].
+> ```
+
+Markdown also supports a hierarchy of headings to organize your document. The **Outline** to the right is generated automatically by the headings in the document. **In markdown documents, `#` is for headings, not comments!**
+
+``` {=}
+# H1 heading (top level header)
+## H2
+### H3
+...
+###### H6 (deepest level header)
+```
+
+------------------------------------------------------------------------
+
+# R as a calculator
+
+We saw this content already, in the form of comments in an R script file. The text formatting options in R Notebook make communication more effective and visually interesting.
+
+## Operators
+
+-   `+` addition
+-   `-` subtraction
+-   `*` multiplication
+-   `/` division
+-   `^` or `**` exponentiation
+-   x `%%` y modulus
+-   x `%/%` y integer division
+
+## Logical Operators
+
+-   `<` less than
+-   `<=` less than or equal to
+-   `>` greater than
+-   `>=` greater than or equal to
+-   `==` equals (comparison)
+-   `!=` not equal
+-   `!x` not x
+-   `x | y` x OR y
+-   `x & y` x AND y
+
+#### Try it:
+
+We can try the code right in the notebook. This is an R code chunk (note that it starts with `{r}` ).
+
+Run this chunk by clicking its *Run* button (green right arrowhead ▶️ ) or by clicking inside the block and pressing *Cmd+Shift+Enter (macOS) or* *Ctrl+Shift+Enter* (Windows).
+
+```{r}
+2 + 2
+```
+
+```{r}
+3 > 4 
+```
+
+**Console results appear right below the code cells within the document.**
+
+-   **No need to keep console open**
+
+## Math and Stats functions / constants
+
+-   `log(x)` natural log or in specified base
+-   `exp(x)` exponential
+-   `pi` value of pi
+-   `mean(x)` mean
+-   `var(x)` variance
+-   `sd(x)` standard deviation
+-   ... and many more
+
+#### Note about functions
+
+**You don't need to program functions to use R, but you do need to call functions!** Applying functions to data is the fundamental building block of statistical analysis in R.
+
+In programming, a function takes input and return an output. In R, the convention for calling a function is to write the function name followed by a pair of parenthesis. The function arguments appear with the parenthesis:
+
+`name(argument)`
+
+If the function accepts multiple arguments, separate the arguments with a comma:
+
+`name(argument1, argument2)`
+
+```{r}
+log(10)        # natural log of 10
+log(10, 10)    # what do you expect this does?
+```
+
+```{r}
+?log           # lets check the docs (click the help tab)
+```
+
+Some functions use named arguments. Refer the to documentation for the function to learn the argument names. Use the names whenever you can to make the meaning of your code more clear.
+
+```{r}
+log(10, base=10)    # using the named arguments makes the meaning clear.
+```
+
+------------------------------------------------------------------------
+
+# Variables
+
+Variables are used to store and use values.
+
+You choose the variable name, but be careful:
+
+-   If the variable name is the same as a function you what to use, R won't be able to *see* the function once the variable is created.
+
+-   There are a small number of reserved names that cannot be used as variable names.
+
+Suppose we need to store the measurement for an object's width. We might create a variable to hold the value. **We can use a single `=` or a `<-` to assign a value to variable name.** The `<-` for assignment comes from the APL language which used a special keyboard for symbols. These keyboards haven't been made since the 80's but the convention lives on. You will see both styles of assignment, sometimes within a single document!
+
+```{r}
+width = 20     # does not print anything (try ls() or objects())
+```
+
+In contrast to other statistical software, R does not print results after running commands. Instead, R creates objects in memory for you to use. This can feel like R is not *doing* anything, unless you know where to look. Click the Environment tab (probably in the upper right pane) and note how the environment changes as you execute each command.
+
+```{r}
+width          # but variable was created (see Environment tab)
+```
+
+Variables can hold the results of a computation as well.
+
+```{r}
+height = 5 * 9
+```
+
+```{r}
+width * height # same as 20 * 45
+```
+
+Suppose we make a mistake:
+
+```{r}
+ls() # show the objects in memory
+widith <- 10 #oops, misspelled "width" 
+ls()
+```
+
+We don't have to live with it. Objects can be removed using the rm() function.
+
+```{r}
+rm(widith)
+ls()
+```
+
+------------------------------------------------------------------------
+
+# Data types
+
+Data types are a way to model the different kinds of data we encounter every day in our work. Most data used for statistical analysis is probably numeric, but our data also contain information like names, that are **strings** of letters. We might have indicator variables that can be either **true or false**. Some of the string-like data represent special kinds of data, like dates, times or levels of a categorical variable.
+
+It is important to make sure that your data is represented by the correct R data type because data type determines how R can use the values.
+
+**Most common data types**
+
+|       Type | Description                                                                 |
+|-------------------:|----------------------------------------------------|
+|    numeric | 3, 5.2, etc                                                                 |
+|    boolean | TRUE, FALSE                                                                 |
+|  character | (i.e. string) "cat", "dog"                                                  |
+|     factor | categorical variable - data value is one of a small set of possible values. |
+| date[time] | represents a date or specific date and time.                                |
+
+    5           # numeric
+    TRUE        # Boolean / Logical 
+
+    "I like R"  # character(s) / string
+    'I like R'  # single or double quotes
+
+Data type determines what you can do with the data:
+
+```{r}
+5 * 2 # perfectly sensible
+```
+
+```{r}
+"I like R" * 2  # nonsensical
+```
+
+Python style concat does not work: `"I" + "like" + "R"`
+
+On the other hand, string functions and comparison operators do work with strings.
+
+```{r}
+paste("I", "like", "R")
+"aa" < "ab"
+"cc" > "cd"
+```
+
+```{r}
+this_day = as.Date("2022-05-17")
+yesterday =  as.Date("2022-05-16")
+this_day
+yesterday
+this_day < yesterday  #? Was today before yesterday?
+                      # Why did us "this_day" for today? (namespace)
+                      # Will discuss in pain points sections
+format(as.Date("2022-05-17"), '%A %B %d %Y')  #POSIX  date formatting
+```
+
+------------------------------------------------------------------------
+
+# Data Containers (Objects)
+
+Data values more useful when stored as a collection in a container. We don't want to store the each cell in our data table under a different name!
+
+R has two types of data containers; containers that hold collections of same-type values and those that can hold mixed types.
+
+**Single Type Containers**
+
+-   vector v[i]
+-   matrix m[i,k]
+-   array a[i,j,k,.....]
+
+**Multi-type Containers**
+
+-   Lists
+-   Data Frames
+
+You can convert between compatible containers using `as.*()` methods (as.list(), as.data.frame()). For instance, you might convert a matrix `m` to a data.frame using `as.data.frame(m)`.
+
+## Vector
+
+A vector is like a column from a data table. It has one dimension (length) and all the elements in the vector are of the same kind.
+
+```{r echo=FALSE}
+my_vec = c(8, 6, 7, 5, 3, 0, 9)
+my_vec
+```
+
+The first element is at index 1. Last element is at length(my_vec)
+
+```{r}
+my_vec[1]   # use square bracket to get an item from vector
+length(my_vec)   # length is 7
+my_vec[7]
+my_vec[1:3]  # ranges are inclusive
+```
+
+Most R operators and functions support vector input
+
+```{r}
+my_vec^2
+my_vec + my_vec
+my_vec * my_vec   # pairwise, vector multiplication
+```
+
+**Caution:** If you ask R to make a vector of mixed types, R automatically (and silently) finds a common data type. This might not be the type you would have selected.
+
+*A string, a Boolean and an integer go into a vector...*
+
+```{r}
+mixed = c("R", TRUE, 10)
+mode(mixed)
+mixed # everything is string!
+```
+
+```{r}
+mixed2 =c(1, 2, 3, TRUE)
+mode(mixed2)
+mixed2 # Boolean is now an int! # as.logical(1) == TRUE
+```
+
+R includes many functions to make sequences
+
+```{r}
+?seq # Try R's help for the seq function
+     # see the Help tab on the bottom-right panel
+```
+
+```{r}
+seq(from=1, to=10, by=1)
+1:10
+my_seq = seq(from=1, to=10, by=1)
+```
+
+Vectors of Boolean values are helpful for selecting subsets.\
+Boolean vector example: `c(TRUE, TRUE, FALSE, TRUE)`
+
+We can make a Boolean vector by using a comparison expression and another sequence. For instance, we might want to find the even values from my_seq above.
+
+```{r}
+my_seq %% 2 == 0                # which values in my_seq are even?
+my_bool_vec = my_seq %% 2 == 0  # store the Boolean vector
+```
+
+The Boolean vector can be used to subset the original vector:
+
+```{r}
+my_seq
+my_seq[my_bool_vec]
+```
+
+## Matrix
+
+A matrix has two dimensions, *rows* and *columns*.
+
+```{r}
+vals = 1:9
+vals
+mat1 = matrix(vals, nrow = 3, byrow = TRUE)
+mat1
+```
+
+```{r}
+mat1[1,3]  # index by row and column
+```
+
+R supports matrix operations. For instance, multiplying a vector by its transpose creates a matrix:
+
+```{r}
+my_vec = c(8, 6, 7, 5, 3, 0, 9)
+my_mat = my_vec %*% t(my_vec)
+mode(my_mat)
+my_mat
+```
+
+Matrices are not limited to numeric values. You can make a character matrix (if the need arises).
+
+```{r}
+mat2 = matrix(c('a','b','c','d'), nrow=2)
+mat2
+```
+
+## Single type summary
+
+-   a stack of values $\rightarrow$ vector
+-   a stack of vectors $\rightarrow$ matrix
+-   a stack of matrices $\rightarrow$ array (multidimensional array)
+
+In general arrays are helpful for programming R and less commonly used for data analysis. (You might run into arrays for time series analysis).
+
+# Mixed type containers
+
+Lists and data.frames are extremely common in data analysis.
+
+## Lists
+
+Lists allow mixed types and might hold data values and data containers. Lists are commonly used to hold the results of a statistical analysis. For example, fitting a regression model returns a list-like model object.
+
+One way to create a list is to pass a series of arguments to the `list` function:
+
+```{r}
+my_list = list(
+  "I like R",
+  as.Date("2022-05-16"),
+  20,
+  c(8, 6, 7, 5, 3, 0, 9)   #no comma after last arg (cf python)
+)
+my_list
+```
+
+**Be sure to inspect the list object in the Environment tab!**
+
+Alternatively:
+
+```{r}
+for (elem in my_list) {    # example of flow-control 
+  print(class(elem))       # see the Environment tab as well
+}
+```
+
+You can access list items by position using double square brackets:
+
+```{r}
+my_list[[1]]          # first list item
+my_list[[4]][1:3]     # first 3 elements of fourth list item
+```
+
+That is bit of a mess, so consider naming your list elements for easier access:
+
+```{r}
+my_list2 = list(
+  message = "I like R",
+  yesterday =  as.Date("2022-05-16"),
+  width = 20,
+  my_vec = c(8, 6, 7, 5, 3, 0, 9)  #no comma after last arg (cf python)
+)
+my_list2
+```
+
+**Note how this appears in the Environment tab**
+
+Now we can use the names to access the elements:
+
+```{r}
+my_list2$message     # "message" element
+my_list2$my_vec[1:3] # first 3 items from my_vec element
+names(my_list2)
+```
+
+Naming the list items creates a data structure like a hash table or Python dictionary. Lists with named elements are used for model results and you can access the particular components by name (e.g. model\$residuals).
+
+## Data Frames
+
+The data.frame family of data structures is the familiar data format with rows as cases and columns as variables. It is the same kind of data that would be stored in an Excel spreadsheet, CSV or Pandas DataFrame.
+
+The built-in frame-like structure is data.frame. There are two common variations you might encounter in add-on packages.
+
+1.  `data.table` - adds large data features to data.frame
+2.  `tibble` - frame-like with strict checking (less convenience features, like partial match)
+
+The data.frames syntax is similar to the syntax for lists, but all the elements are vectors (columns) and must be same length.
+
+This chunk creates a data.frame with three columns (id, age, height):
+
+```{r}
+my_df = data.frame(
+  id = 1:9,
+  age = round(runif(9, 8, 12)),
+  height = round(runif(9, 38, 60), 1)
+)
+my_df
+```
+
+**Check Environment tab and use the preview.**
+
+Rows are indexed and columns are named (and indexed):
+
+```{r}
+my_df[1,]    #first row
+my_df$age    #column "age"
+```
+
+Just declare new columns to creating them:
+
+```{r}
+my_df$gender = "boy"   # single value broadcast to whole column
+my_df
+my_df$gender[5:9] = "girl" # single value broadcast to subset
+my_df
+```
+
+There are many functions that operate on data.frames. For instance:
+
+```{r}
+summary(my_df)
+```
+
+The summary for gender is disappointing. We should make this a factor, so it is treated as a categorical variable.
+
+```{r}
+my_df$gender = as.factor(my_df$gender)
+summary(my_df)
+```
+
+Now the summary is more useful. Data types matter!
+
+A few other functions:
+
+```{r}
+head(my_df)     # show the first 6 rows of the data frame
+                # (good for large data frames)
+mean(my_df$age) # compute mean of a column
+sd(my_df$age)   # compute standard deviation of a column
+```
+
+# Summary
+
+If you understand the semantics for functions, lists, data.frames and vectors, you will be equipped to understand most of the examples you encounter. Use the help tab to look up the documentation and examples for function calls.

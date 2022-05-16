@@ -9,10 +9,14 @@ output:
 subtitle: XSEDE Workshop Series
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## XSEDE Acknowledgement 
+
+## Terminology Slide
+
 
 ## Workshop Questions
 
@@ -20,6 +24,13 @@ knitr::opts_chunk$set(echo = FALSE)
 2. When is R helpful?
 3. What features make R worth learning?
 4. Where can I get more information?
+
+
+## Polls
+1. How many people have used R before? 
+2. How may people have used Python before?
+3. Have you used scripts to run or document statistical analyses?
+4. What program(s) or environments(s) do you use for statistical analysis?
 
 
 ## Agenda - Part 1
@@ -166,7 +177,7 @@ df$face_color[which(df$software=='R')] = 'cornflowerblue'
     color = "violetred"
   )
   + geom_segment(aes(xend=current, yend=software), size=5, color=df$color)
-  + ggtitle("Statistical software timeline")
+  + ggtitle("Timeline of statistical software and influences")
 )
 ```
 R is a relative newcomer (as is Python) but builds on a long legacy (APL, S, Scheme).
@@ -178,31 +189,32 @@ R is a relative newcomer (as is Python) but builds on a long legacy (APL, S, Sch
    - Jupyter Lab stands for the **Ju**lia, **Pyt**hon, and **R** languages
 
 - R and Python have significant overlap and similarity, but
-   - Python is more general
-   - Python tends to be favored for machine learning
-   - R tends to be favored for statistical analysis
-   - Both have huge communities and many add-on packages
+   - Python is more general.
+   - Python tends to be favored for deep learning.
+   - R and Python are both popular in machine learning.
+   - R tends to be favored for statistical analysis.
+   - Both have huge communities and many add-on packages.
    
 - Julia is general purpose language designed at MIT with numerical computing in mind. 
    - Only recently reached version 1.0
-   - Designed to be more performant but is    still developing
+   - Designed to be more performant but it is still developing
    - Small ecosystem compared to R and Python
    - Keep an eye on it! 
 
 
 ## Motivation for R
 
-#### What if we combine things we like into a statistical computing environment and make it free and open source so others could do the same?
-
 - Two faculty members at the University of Auckland wanted a "better software environment [for] their teaching laboratory" (1990s)
    - **did not like** the commercial offerings available
    - **did like** the S statistical programming language 
-   - **wished** S had some of the modern language features introduced in the Lisp vairant called Scheme
+   - **wished** S had some of the modern language features introduced in the Lisp variant called Scheme
 
 - R started as an S implementation with some Scheme features and was distributed via an email list.
    
 - Colleague a ETH Zurich persuaded them to open source R (1995)  
 
+
+#### What if we combine things we like into a statistical computing environment and make it free and open source so others could do the same?
 
 
 <br />
@@ -210,8 +222,51 @@ R is a relative newcomer (as is Python) but builds on a long legacy (APL, S, Sch
 <br />
 Ihaka, Ross. (1998) R : Past and Future History, *A Draft of a Paper for Interface ’98*.  https://cran.r-project.org/doc/html/interface98-paper/paper.html 
 
+## Collective, eclectic development
+
+- R's developers borrow code conventions and programming styles freely. 
+   - "object oriented" `object.member` naming is common but has no special meaning in R
+   - Many conventions mixed together: InitalCaps, camelCase, snake_case, vars.with.dots (again, R does not assign special meaning)
+   - Packages tend to work well with expected input and unpredictably with incorrect input. 
+   - Many ways to accomplish any given task, inspired by different paradigms.
+   
+- Focus on practical, productive use
+   - automatic and silent type conversion (casting)
+   - convenience features can become gotchas (global namespace, attach)
+      - variables names can mask functions
+      - packages can mask each other's functions 
+
+## Community
+
+- R is used and supported by a community of largely academic researchers and developers (and more recently, data scientists).
 
 
+- R gains new features via _packages_ developed by the community
+   - Over 10,000 add-on libraries!
+   - R packages can target highly specialized research areas.
+   - R packages are used to implement and share cutting edge statistical methodology.
+   - The official package collection is at [https://cran.r-project.org](https://cran.r-project.org)
+   - Other collections exist: [http://www.bioconductor.org](http://www.bioconductor.org).
+   - Can load packages directly from github. 
+
+- Active community generating tutorials and demos:   
+   - https://www.r-bloggers.com
+   - https://education.rstudio.com/learn/
+
+## Documentation
+
+#### R has built-in help and documentation
+
+#### A typical help entry includes
+
+- *Descriptions* of each function and their arguments.
+- *Examples* showing how the functions might be used.
+- *References* to relevant manuals and academic papers.
+
+#### Documentation for packages usually also includes:
+
+ - One or  more *vignettes* demonstrating how the package can be used to perform an analysis.
+ - Bundled *data sets* that support the vignette and demonstrate required data formats.
 
 ## Base R
 
@@ -221,6 +276,10 @@ Ihaka, Ross. (1998) R : Past and Future History, *A Draft of a Paper for Interfa
 https://www.r-project.org.
 
 - Command line interface via R console
+
+- Creates objects in memory rather than printing to screen. 
+- You query and manipulate these in-memory objects
+- Interactive, but not in the point-and-click GUI sense. 
 
 - Script execution via `R CMD BATCH script_file.R` 
 
@@ -260,11 +319,24 @@ of RStudo with the same interface.
 knitr::include_graphics(path="images/rstudio.png")
 ```
 
-## List
+## 10 Minutes to R
 
-- level 1
-   - level 2
-- level 1
+1. Open rstudio workspace link: [https://rstudio.cloud/project/4044219](https://rstudio.cloud/project/4044219)
+
+2. Login (signup if you haven't yet) already
+
+3. Locate the tab labled `Console` in left pane (unless you have changed the layout)
+
+4. the `>` symbol near the bottom of the console window is the *prompt*. 
+   - Click to the right of the prompt and type `2 + 2`, then press `return`
+
+```{r echo=TRUE, fig.align='center', out.width="95%"}
+2 + 2
+```
+
+
+
+## End
 
 
 ## Slide with R Output

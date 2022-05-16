@@ -1,0 +1,173 @@
+---
+title: "Examining data"
+output: html_notebook
+---
+
+
+As an example, we will load a dataset based on the registration data for this workshop. 
+
+Before we begin, use the broom icon in the Environment tab to clear the environment. 
+
+# Loading packages
+
+Now, load the required packages. If this was on your own computer, you might have to install packages first using
+```
+install.packages("tidyverse")
+install.packages("ggtext")
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE, results='hide'}
+require(ggplot2)
+require(dplyr)
+require(lubridate)
+require(ggExtra)
+```
+
+
+# Loading data
+The data is in comma separated format, so the default settings of `read.csv` work well:
+```{r}
+df = read.csv("./registration.csv")
+```
+There is no output but you can see the data has loaded in the Environment tab. 
+
+We can get basic information about the data using functions:
+```{r}
+dim(df)
+names(df)
+```
+
+We might also want to view a summary and first few lines of the file. 
+```{r paged.print=FALSE}
+summary(df)
+head(df)
+```
+
+R was able to guess that the On.Waitlist variable was logical (Boolean). On the other hand, the Registered.on column should represent a date and time but R did not auto-convert it. We should convert to a datetime. 
+
+The `mdy_hm()` function from the lubridate package is a convenient choice. For example:
+```{r}
+mdy_hm("04/22/2022 14:51 UTC")
+```
+Note: Many functions work on entire data columns (vectors)
+```{r}
+mdy_hm(df$Registered.on)
+```
+
+Lets update that column and check the summary again:
+```{r}
+df$Registered.on = mdy_hm(df$Registered.on)
+summary(df)
+```
+
+# ggplot2 & dplyr
+
+Hadley Wickham, currently working at the company that develops RStudio produced a collection add-on packages for R that address major shortcomings in the R experience and make R more pleasant to use. Collectively, this set of packages is known as the *tidyverse* and it includes the well known *ggplot2* and *dplyr* packages and a host of smaller utility functions. 
+
+Wickham has a vision for how R can enable data analysis by using a common *grammar* to describe how to visualize or analyze data. When you use this grammar to produce results, you can focus on what you want the analysis to do and less on how to accomplish it. When you use this grammar of graphics or grammar of data analysis, the code that produces your results describes the steps succinctly.
+
+RStudio PBC publishes documentation, tutorials and training, including these helpful cheatsheets [https://www.rstudio.com/resources/cheatsheets/](https://www.rstudio.com/resources/cheatsheets/). 
+
+
+## "pipe" operator: `%>%`
+
+The tidyverse uses an operator to chain function calls in a way that is easy for humans to read. 
+
+Without the pipe operator, your code might look like this:
+
+```
+sorted_df = arrange(df, Registered.on)
+sorted_df_with_total = mutate(sorted_df, cumtotal=row_number(Registered.on))
+plot_df = filter(sorted_df_with_total, Registered.on > ymd_hm("20220422 14:00"))
+```
+Even worse, you might be tempted to nest the functions:
+```
+plot_df = filter(mutate(arrange(df, Registered.on), cumtotal=row_number(Registered.on)), Registered.on > ymd_hm("20220422 14:00"))
+
+```
+
+With the pipe operator, you can express the same steps as a sequence without creating several intermediate variable names. Arranged as a sequence, we can see that we sort the data.frame, add a column to reflect the total number of registrants, and then filter the data to include cases after a certain date. 
+
+I prefer the wrap the steps in parenthesis and start each line with the `%>%` operator, so I can comment out individual lines. It is far more common to omit the parenthesis and end each line with a `%>%`. 
+
+```{r}
+plot_df = (
+  df 
+  %>% arrange(Registered.on) 
+  %>% mutate(cumtotal = row_number(Registered.on))
+  %>% filter(Registered.on >= ymd_hm("20220422 14:00"))
+)
+
+plot_df %>% head
+```
+
+# Plotting the data
+
+Suppose we want to examine how registration changed over time. We can plot a histogram of the number of registrants in each interval. 
+
+ggplot2 uses a similar system of composing plots by applying a sequence of steps but it uses the `+` operator to combine steps. 
+
+```{r}
+plot_df = (
+  df 
+  %>% arrange(Registered.on) 
+  %>% mutate(cumtotal = row_number(Registered.on))
+  %>% filter(Registered.on >= ymd_hm("20220422 14:00"))
+)
+(
+  ggplot(plot_df, aes(x=Registered.on))
+  + geom_histogram(binwidth = 300) #, color="darkgrey", fill="grey") #600s = 10mins
+  #+ geom_freqpoly(binwidth = 600) #600 s = 10 minutes
+  #+ theme_bw()
+  #+ ggtitle("Registrations for R workshop")
+)
+```
+```{r}
+plot_df = (
+  df 
+  %>% arrange(Registered.on) 
+  %>% mutate(cumtotal = row_number(Registered.on))
+  %>% filter(Registered.on >= ymd_hm("20220422 14:00"))
+)
+(
+  ggplot(plot_df, aes(x=Registered.on, fill=Position))
+  + geom_histogram(binwidth = 300) #, color="darkgrey", fill="grey") #600s = 10mins
+  #+ geom_freqpoly(binwidth = 600) #600 s = 10 minutes
+  + theme_bw()
+  + ggtitle("Registrations for R workshop")
+  + facet_wrap(~ Position)
+)
+```
+
+```{r}
+(
+  ggplot(plot_df, aes(x=Registered.on, y=cumtotal, color=On.Waitlist))
+  + geom_line() #600 s = 10 minutes
+  + geom_histogram(
+      aes(x=Registered.on), 
+      inherit.aes=FALSE, 
+      binwidth = 1
+    ) 
+  + geom_point()
+  + theme_bw()
+  + ggtitle("Total Registrations for R workshop")
+  + ylab("Total  Registrations")
+  + geom_hline(yintercept = 49, linetype=2)
+  + annotate("text", x=mdy_hm("04/22/2022 14:00 UTC"), y=49, label="Course Capacity", hjust=0, vjust=-.5)
+)
+```
+
+
+```{r}
+df %>% count(Position, sort = TRUE) 
+```
+
+```{r}
+(
+  df
+  %>% filter(Registered.on > ymd_hm("20220422 14:00"))
+  %>% group_by(Position) 
+  %>% summarize(mean_reg = mean(Registered.on), n=n()) 
+  %>% arrange(mean_reg)
+)
+```
