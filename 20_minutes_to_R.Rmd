@@ -460,9 +460,9 @@ my_df$age    #column "age"
 Just declare new columns to creating them:
 
 ```{r}
-my_df$gender = "boy"   # single value broadcast to whole column
+my_df$grade = "3rd"   # single value broadcast to whole column
 my_df
-my_df$gender[5:9] = "girl" # single value broadcast to subset
+my_df$grade[5:9] = "4th" # single value broadcast to subset
 my_df
 ```
 
@@ -472,10 +472,10 @@ There are many functions that operate on data.frames. For instance:
 summary(my_df)
 ```
 
-The summary for gender is disappointing. We should make this a factor, so it is treated as a categorical variable.
+The summary for grade is disappointing. We should make this a factor, so it is treated as a categorical variable.
 
 ```{r}
-my_df$gender = as.factor(my_df$gender)
+my_df$grade = as.factor(my_df$grade)
 summary(my_df)
 ```
 
