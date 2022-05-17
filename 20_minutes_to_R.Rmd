@@ -71,8 +71,10 @@ We saw this content already, in the form of comments in an R script file. The te
 -   `==` equals (comparison)
 -   `!=` not equal
 -   `!x` not x
--   `x | y` x OR y
--   `x & y` x AND y
+-   `x | y` x OR y (compares bitwise, so it potentially returns a vector)
+-   `x & y` x AND y (compares bitwise, so it potentially returns a vector)
+-   `x || y` x or y (returns TRUE or FALSE, use in if conditions)
+-   `x && y` x and y (returns TRUE or FALSE, use in if conditions)
 
 #### Try it:
 
@@ -86,6 +88,18 @@ Run this chunk by clicking its *Run* button (green right arrowhead ▶️ ) or b
 
 ```{r}
 3 > 4 
+```
+
+```{r}
+c(TRUE, FALSE, TRUE, FALSE) & c(TRUE, TRUE, FALSE, FALSE)
+```
+
+```{r}
+if ( (3 < 4) && ('aa' < 'ab') ){
+  print("True")
+} else {
+  print("False")
+}
 ```
 
 **Console results appear right below the code cells within the document.**
@@ -189,7 +203,7 @@ It is important to make sure that your data is represented by the correct R data
 **Most common data types**
 
 |       Type | Description                                                                 |
-|--------------------:|---------------------------------------------------|
+|---------------------:|--------------------------------------------------|
 |    numeric | 3, 5.2, etc                                                                 |
 |    boolean | TRUE, FALSE                                                                 |
 |  character | (i.e. string) "cat", "dog"                                                  |
