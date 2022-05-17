@@ -1,59 +1,107 @@
-Department,Position,Server,Registered on,On Waitlist
-Natural Sciences,Faculty,ecsu.edu,04/22/2022 14:51 UTC,FALSE
-Infrastructure and Environmental System,Graduate Student,uncc.edu,04/22/2022 14:46 UTC,FALSE
-,Undergraduate Student,gmail.com,04/22/2022 15:47 UTC,TRUE
-NPRE,Graduate Student,illinois.edu,04/22/2022 15:24 UTC,FALSE
-Physics Department,Faculty,wiu.edu,04/22/2022 14:19 UTC,FALSE
-Research Computing,Faculty,kennesaw.edu,04/22/2022 15:14 UTC,FALSE
-CS,Faculty,floridapoly.edu,04/22/2022 14:27 UTC,FALSE
-Holland Computing Center,Center Non-Researcher Staff,unl.edu,04/22/2022 14:39 UTC,FALSE
-,Undergraduate Student,students.cau.edu,04/22/2022 03:58 UTC,FALSE
-Center for High-Performance Computing,University Research Staff (excluding postdoctorates),utah.edu,04/22/2022 14:54 UTC,FALSE
-,Postdoctorate,pitt.edu,04/22/2022 14:43 UTC,FALSE
-Mathematics and Statistics,Faculty,uncw.edu,04/22/2022 14:22 UTC,FALSE
-,Graduate Student,gatech.edu,04/22/2022 15:27 UTC,FALSE
-Chemistry,Postdoctorate,umn.edu,04/22/2022 14:57 UTC,FALSE
-,Graduate Student,u.northwestern.edu,04/22/2022 14:10 UTC,FALSE
-,University Research Staff (excluding postdoctorates),pitt.edu,04/22/2022 14:28 UTC,FALSE
-Mechanical Science & Engineering,Graduate Student,illinois.edu,04/22/2022 14:55 UTC,FALSE
-,Postdoctorate,ucdenver.edu,04/22/2022 14:58 UTC,FALSE
-Biology,Postdoctorate,odu.edu,04/22/2022 15:56 UTC,TRUE
-of Chemistry,Faculty,univ-saida.dz,04/22/2022 15:57 UTC,TRUE
-,Graduate Student,auburn.edu,04/22/2022 15:31 UTC,TRUE
-Georgia Advanced Computing Resource Center,Center Non-Researcher Staff,uga.edu,04/22/2022 14:07 UTC,FALSE
-Research Computing,University Non-Research Staff,virginia.edu,04/22/2022 14:41 UTC,FALSE
-,Center Researcher Staff,purdue.edu,04/22/2022 15:23 UTC,FALSE
-ITS / Research Computing,University Non-Research Staff,ucr.edu,04/22/2022 15:36 UTC,TRUE
-Center for Space Plasma and Aeronomic Research,University Research Staff (excluding postdoctorates),uah.edu,04/22/2022 14:55 UTC,FALSE
-Psychiatry,Postdoctorate,googlemail.com,04/22/2022 14:45 UTC,FALSE
-Physics,Graduate Student,masonlive.gmu.edu,04/22/2022 14:24 UTC,FALSE
-Civil and Environmental Engineering,Faculty,illinois.edu,04/22/2022 15:24 UTC,FALSE
-Consulting,Industrial User,dsmtechnicalsolutions.com,04/22/2022 15:48 UTC,TRUE
-Mathematics,Faculty,morgan.edu,04/22/2022 14:11 UTC,FALSE
-,University Research Staff (excluding postdoctorates),health.ucsd.edu,04/22/2022 15:40 UTC,TRUE
-Benjamin G. Levine Research Group,Postdoctorate,stonybrook.edu,04/22/2022 14:12 UTC,FALSE
-Physics and Astronomy,Faculty,mnsu.edu,04/22/2022 15:20 UTC,FALSE
-Biomolecular Sciences,University Research Staff (excluding postdoctorates),olemiss.edu,04/22/2022 14:31 UTC,FALSE
-,Graduate Student,gatech.edu,04/22/2022 14:41 UTC,FALSE
-Museum of Vertebrate Zoology/Integrative Biology,Faculty,berkeley.edu,04/22/2022 15:59 UTC,TRUE
-Department of Computer Science,Postdoctorate,rochester.edu,04/22/2022 14:30 UTC,FALSE
-Library & Technology Services,University Non-Research Staff,lehigh.edu,04/22/2022 15:09 UTC,FALSE
-,University Research Staff (excluding postdoctorates),gmail.com,04/22/2022 14:54 UTC,FALSE
-,Faculty,umich.edu,04/22/2022 14:43 UTC,FALSE
-ENGINEERING,Other User,gmu.edu,04/22/2022 14:10 UTC,FALSE
-Computer Science,Faculty,gmail.com,04/22/2022 15:20 UTC,FALSE
-Information Technology Services,University Non-Research Staff,tntech.edu,04/22/2022 14:38 UTC,FALSE
-CBEE,Graduate Student,umbc.edu,04/22/2022 14:27 UTC,FALSE
-,Postdoctorate,ucmerced.edu,04/22/2022 14:32 UTC,FALSE
-"Ecology, Evolution & Marine Biology",Graduate Student,ucsb.edu,04/22/2022 15:11 UTC,FALSE
-IS & T,Center Researcher Staff,bu.edu,04/22/2022 15:26 UTC,FALSE
-,Center Researcher Staff,uic.edu,04/22/2022 14:19 UTC,FALSE
-Mechanical Engineering,Faculty,uncc.edu,04/22/2022 14:56 UTC,FALSE
-Mathematics and Physics,Faculty,subr.edu,04/22/2022 14:43 UTC,FALSE
-,Faculty,metrostate.edu,04/22/2022 14:32 UTC,FALSE
-,Center Researcher Staff,ucsd.edu,04/22/2022 14:52 UTC,FALSE
-Harte Research Institute,Center Non-Researcher Staff,tamucc.edu,04/22/2022 15:10 UTC,FALSE
-Chemicstry,Faculty,clarkson.edu,04/22/2022 14:13 UTC,FALSE
-,Postdoctorate,ksu.edu,04/22/2022 14:38 UTC,FALSE
-Application Support,Center Researcher Staff,fz-juelich.de,04/22/2022 14:32 UTC,FALSE
-Mechanical and Material Science,Graduate Student,pitt.edu,04/22/2022 14:16 UTC,FALSE
+Position,Registered on,On Waitlist
+Faculty,04/22/2022 14:51 UTC,FALSE
+Graduate Student,05/11/2022 16:30 UTC,TRUE
+Graduate Student,04/22/2022 14:46 UTC,FALSE
+Undergraduate Student,04/22/2022 15:47 UTC,FALSE
+Graduate Student,04/22/2022 15:24 UTC,FALSE
+Faculty,04/22/2022 17:17 UTC,TRUE
+Faculty,04/24/2022 16:02 UTC,TRUE
+Faculty,04/22/2022 14:19 UTC,FALSE
+Faculty,04/22/2022 15:14 UTC,FALSE
+Graduate Student,04/22/2022 16:47 UTC,TRUE
+Faculty,04/22/2022 14:27 UTC,FALSE
+Center Non-Researcher Staff,04/22/2022 14:39 UTC,FALSE
+Faculty,04/22/2022 20:27 UTC,TRUE
+University Research Staff (excluding postdoctorates),04/25/2022 16:57 UTC,TRUE
+Faculty,04/24/2022 13:19 UTC,TRUE
+Undergraduate Student,04/22/2022 03:58 UTC,FALSE
+Graduate Student,04/25/2022 17:20 UTC,TRUE
+University Research Staff (excluding postdoctorates),04/22/2022 14:54 UTC,FALSE
+Postdoctorate,04/22/2022 14:43 UTC,FALSE
+Graduate Student,04/22/2022 15:27 UTC,FALSE
+University Research Staff (excluding postdoctorates),04/23/2022 00:14 UTC,TRUE
+Faculty,05/02/2022 14:40 UTC,TRUE
+Postdoctorate,04/22/2022 14:57 UTC,FALSE
+Graduate Student,04/22/2022 14:10 UTC,FALSE
+Graduate Student,04/22/2022 14:55 UTC,FALSE
+Graduate Student,05/11/2022 20:57 UTC,TRUE
+Postdoctorate,04/22/2022 14:58 UTC,FALSE
+University Research Staff (excluding postdoctorates),04/25/2022 18:15 UTC,TRUE
+Postdoctorate,04/22/2022 15:56 UTC,FALSE
+High School Teacher,04/25/2022 12:18 UTC,TRUE
+Faculty,04/22/2022 15:57 UTC,FALSE
+Postdoctorate,05/13/2022 19:08 UTC,TRUE
+Graduate Student,04/22/2022 15:31 UTC,FALSE
+Postdoctorate,04/25/2022 20:36 UTC,TRUE
+Graduate Student,05/05/2022 20:22 UTC,TRUE
+Faculty,04/22/2022 18:16 UTC,TRUE
+Faculty,04/26/2022 19:35 UTC,TRUE
+Center Non-Researcher Staff,04/22/2022 14:07 UTC,FALSE
+Center Researcher Staff,04/22/2022 17:36 UTC,TRUE
+University Non-Research Staff,04/22/2022 14:41 UTC,FALSE
+Graduate Student,04/22/2022 16:43 UTC,TRUE
+Center Researcher Staff,04/22/2022 15:23 UTC,FALSE
+Postdoctorate,04/29/2022 15:45 UTC,TRUE
+Postdoctorate,04/26/2022 13:52 UTC,TRUE
+Graduate Student,04/22/2022 18:12 UTC,TRUE
+Graduate Student,04/23/2022 15:14 UTC,TRUE
+University Non-Research Staff,04/22/2022 15:36 UTC,FALSE
+University Research Staff (excluding postdoctorates),04/22/2022 14:55 UTC,FALSE
+Postdoctorate,04/22/2022 14:45 UTC,FALSE
+Graduate Student,04/22/2022 14:24 UTC,FALSE
+Faculty,04/22/2022 15:24 UTC,FALSE
+Faculty,05/11/2022 15:10 UTC,TRUE
+Industrial User,04/22/2022 15:48 UTC,FALSE
+University Research Staff (excluding postdoctorates),04/29/2022 15:58 UTC,TRUE
+Faculty,04/22/2022 14:11 UTC,FALSE
+University Research Staff (excluding postdoctorates),04/22/2022 15:40 UTC,FALSE
+Faculty,04/27/2022 03:30 UTC,TRUE
+University Non-Research Staff,04/28/2022 12:05 UTC,TRUE
+Postdoctorate,04/22/2022 14:12 UTC,FALSE
+Faculty,04/22/2022 15:20 UTC,FALSE
+Graduate Student,04/25/2022 17:00 UTC,TRUE
+Graduate Student,04/22/2022 14:41 UTC,FALSE
+Faculty,04/22/2022 15:59 UTC,TRUE
+Postdoctorate,04/22/2022 14:30 UTC,FALSE
+Graduate Student,05/01/2022 18:59 UTC,TRUE
+University Non-Research Staff,04/22/2022 15:09 UTC,FALSE
+University Research Staff (excluding postdoctorates),04/22/2022 14:54 UTC,FALSE
+Faculty,04/22/2022 19:41 UTC,TRUE
+Other User,04/22/2022 14:10 UTC,FALSE
+Faculty,05/13/2022 19:09 UTC,TRUE
+Industrial User,05/05/2022 17:33 UTC,TRUE
+Faculty,04/22/2022 15:20 UTC,FALSE
+Postdoctorate,04/22/2022 16:16 UTC,TRUE
+University Non-Research Staff,04/22/2022 14:38 UTC,FALSE
+Faculty,04/23/2022 05:17 UTC,TRUE
+University Research Staff (excluding postdoctorates),05/02/2022 19:02 UTC,TRUE
+Postdoctorate,04/22/2022 14:32 UTC,FALSE
+Graduate Student,04/22/2022 15:11 UTC,FALSE
+Center Researcher Staff,04/22/2022 15:26 UTC,FALSE
+Faculty,04/23/2022 22:39 UTC,TRUE
+Graduate Student,04/23/2022 13:21 UTC,TRUE
+University Research Staff (excluding postdoctorates),04/26/2022 14:11 UTC,TRUE
+Center Researcher Staff,04/22/2022 14:19 UTC,FALSE
+Faculty,04/22/2022 16:20 UTC,TRUE
+Faculty,04/22/2022 14:43 UTC,FALSE
+Faculty,04/22/2022 14:32 UTC,FALSE
+University Research Staff (excluding postdoctorates),04/22/2022 17:38 UTC,TRUE
+Graduate Student,04/22/2022 17:37 UTC,TRUE
+Center Researcher Staff,04/22/2022 14:52 UTC,FALSE
+Center Non-Researcher Staff,04/22/2022 15:10 UTC,FALSE
+Graduate Student,04/28/2022 21:43 UTC,TRUE
+Center Researcher Staff,04/22/2022 21:50 UTC,TRUE
+University Research Staff (excluding postdoctorates),04/30/2022 06:45 UTC,TRUE
+Graduate Student,04/27/2022 23:31 UTC,TRUE
+Postdoctorate,04/22/2022 14:38 UTC,FALSE
+Postdoctorate,05/11/2022 23:01 UTC,TRUE
+Graduate Student,04/25/2022 14:56 UTC,TRUE
+Faculty,05/12/2022 17:06 UTC,TRUE
+University Research Staff (excluding postdoctorates),04/22/2022 17:48 UTC,TRUE
+Center Researcher Staff,04/22/2022 14:32 UTC,FALSE
+University Research Staff (excluding postdoctorates),04/26/2022 01:51 UTC,TRUE
+Graduate Student,04/22/2022 14:16 UTC,FALSE
+Postdoctorate,04/23/2022 07:46 UTC,TRUE
+University Non-Research Staff,05/11/2022 16:47 UTC,TRUE
+Postdoctorate,05/10/2022 22:27 UTC,TRUE
+Faculty,04/22/2022 16:27 UTC,TRUE

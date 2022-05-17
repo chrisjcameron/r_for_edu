@@ -106,7 +106,7 @@ Run this chunk by clicking its *Run* button (green right arrowhead ▶️ ) or b
 
 **You don't need to program functions to use R, but you do need to call functions!** Applying functions to data is the fundamental building block of statistical analysis in R.
 
-In programming, a function takes input and return an output. In R, the convention for calling a function is to write the function name followed by a pair of parenthesis. The function arguments appear with the parenthesis:
+In programming, a function takes input and returns an output. In R, the convention for calling a function is to write the function name followed by a pair of parenthesis. The function arguments appear with the parenthesis:
 
 `name(argument)`
 
@@ -189,7 +189,7 @@ It is important to make sure that your data is represented by the correct R data
 **Most common data types**
 
 |       Type | Description                                                                 |
-|-----------:|-----------------------------------------------------------------------------|
+|--------------------:|---------------------------------------------------|
 |    numeric | 3, 5.2, etc                                                                 |
 |    boolean | TRUE, FALSE                                                                 |
 |  character | (i.e. string) "cat", "dog"                                                  |
