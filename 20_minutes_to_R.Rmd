@@ -123,7 +123,7 @@ log(10, 10)    # what do you expect this does?
 ?log           # lets check the docs (click the help tab)
 ```
 
-Some functions use named arguments. Refer the to documentation for the function to learn the argument names. Use the names whenever you can to make the meaning of your code more clear.
+Some functions use named arguments. Refer the to documentation for the function to learn the argument names. Use the names whenever you can to make the meaning of your code more clear. Inside a function call, you should use the `=` sign to attach a value to an argument name.
 
 ```{r}
 log(10, base=10)    # using the named arguments makes the meaning clear.

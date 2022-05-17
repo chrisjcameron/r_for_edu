@@ -3,7 +3,7 @@ title: "Examining data"
 output: html_notebook
 ---
 
-As an example, we will load a dataset based on the registration data for this workshop.
+As an example, we will load a data set based on the registration data for this workshop.
 
 Before we begin, use the broom icon in the Environment tab to clear the environment.
 
@@ -132,11 +132,14 @@ plot_df = (
   df 
   %>% arrange(Registered.on) 
   %>% mutate(cumtotal = row_number(Registered.on))
-  %>% filter(Registered.on >= ymd_hm("20220422 14:00"))
+  %>% filter(
+        Registered.on >= ymd_hm("20220422 14:00")
+        & Registered.on < ymd_hm("20220422 18:00")
+      )
 )
 (
   ggplot(plot_df, aes(x=Registered.on, fill=Position))
-  + geom_histogram(binwidth = 60*60*25, show.legend=FALSE) #, color="darkgrey", fill="grey") #600s = 10mins
+  + geom_histogram(binwidth = 60*60, show.legend=FALSE) #, color="darkgrey", fill="grey") #600s = 10mins
   #+ geom_freqpoly(binwidth = 600) #600 s = 10 minutes
   + theme_bw()
   + ggtitle("Registrations for R workshop")
@@ -151,7 +154,7 @@ plot_df = (
   %>% mutate(cumtotal = row_number(Registered.on))
   %>% filter(
         Registered.on >= ymd_hm("20220422 14:00")
-        & Registered.on < ymd_hm("20220426 00:00")
+        #& Registered.on < ymd_hm("20220426 00:00")
       )
 )
 (
@@ -165,6 +168,8 @@ plot_df = (
   + annotate("text", x=mdy_hm("04/23/2022 14:00 UTC"), y=50, label="Course Capacity", hjust=0, vjust=-.5)
 )
 ```
+
+# Summarizing with dplyr
 
 ```{r}
 df %>% count(Position, sort = TRUE) 

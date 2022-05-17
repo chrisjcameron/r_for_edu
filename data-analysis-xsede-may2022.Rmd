@@ -1,0 +1,437 @@
+---
+title: 'Introduction to Data Analysis with R'
+subtitle: 'An introduction to linear regression'
+author: 'Wilbur Ouma'
+date: 'May 17, 2022'
+output:
+  html_document: default
+  pdf_document:
+    latex_engine: xelatex
+---
+
+## Overview
+
+In this course, we will first introduce the Simple Linear Regression (SLR) Model. Inferences for the simple linear regression model will be discussed. We will also introduce a basic understanding of the multiple regression model. In both cases, we will estimate regression coefficients and offer an interpretation of the coefficients.
+
+## Objectives
+
+Upon successful completion of this workshop, you should be able to:
+
+-   Fit a SLR and a multiple regression model to data.
+
+-   Use summary statistics from the fit to describe the relationship between the response variable and predictor variable(s).
+
+## Simple Linear Regression
+
+### Model definition
+
+To define a useful model, we must investigate the relationship between the response and the predictor variables. As mentioned before, the focus of this workshop is linear relationships.
+
+For a brief review of linear functions, recall --- from high school algebra --- that the equation of a line has the following form:
+
+$$
+y = b + mx 
+$$
+
+where $m$ is the slope and $b$ is the y-intercept.
+
+![](./images/scatter_plot.png){width="490"}
+
+The general form of the simple linear regression model --- for predicting a quantitative response (dependent) $Y$ on the basis of a single predictor (independent) variable $X$ --- closely resembles the equation of a line shown above, such that:
+
+$$
+Y = \beta_0 + \beta_1 X + \epsilon
+$$
+
+For an individual observation,
+
+$$
+y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+$$ Where:
+
+-   $\beta_0$ is the is the population y-intercept,
+-   $\beta_1$ is the population slope,
+-   $x_i$ is the *i*th observation, and
+-   $\epsilon_i$ is the error or deviation of observation $y_i$ from the line $\beta_0 + \beta_1 x_i$, and $\epsilon \sim N (0, \sigma^2)$
+
+Together, $\beta_0$ and $\beta_1$ are known as the (unknown) model *coefficients* or *parameters*. We use training data to produce estimates of the parameters --- $\hat\beta_0$ and $\hat\beta_1$ to describe the relation between $Y$ and $X$, and make predictions of $\hat{y_i}$ given $x_i$.
+
+Let $\hat{y_i} = \hat\beta_0 + \hat\beta_1 x_i$ be the prediction for $Y$ based on the *i*th value of $X$.
+
+Then $\epsilon_i = y_i - \hat{y_i}$ represents the *i*th residual --- this is the difference between the *i*th observed response value and the *i*th response value that is predicted by our linear model.
+
+### Case Study 1: Is there a statistically significant relationship between height and weight?
+
+Suppose we took a sample from students at a large university and asked them about their height and weight. The data can be found [here](https://online.stat.psu.edu/stat500/sites/stat500/files/data/university_ht_wt.TXT). We want to determine and quantify the relationship between height and weight.
+
+We first load appropriate $R$ packages:
+
+```{r,}
+library(tidyverse)
+library(ISLR2)
+```
+
+Next, we load the height-weight data from a public repository:
+
+```{r,}
+university_ht_wt<-read_csv(file = "https://figshare.com/ndownloader/files/30850678")
+university_ht_wt<-university_ht_wt %>% 
+  drop_na() #remove rows with NA
+head(university_ht_wt)
+```
+
+And examine the structure of the object
+
+```{r,}
+str(university_ht_wt)
+```
+
+We can fit a least squares line for which the sum of squared errors of predictions for all sample points is the least. We use the least squares method to find estimates for the two parameters.
+
+We use the $R$ function $lm$ to fit a simple linear regression model to the height-weight data.
+
+The basic syntax is:
+
+$lm(y ∼ x, data)$, where
+
+$y$ is the response,
+
+$x$ is the predictor, and
+
+$data$ is the data set in which these two variables are kept.
+
+Let us first check the following assumptions of a SLR model:
+
+#### Linearity
+
+The relationship between $X$ and $Y$ must be linear. Check this assumption by examining a scatterplot of x and y.
+
+```{r,}
+##check linearity
+ggplot(university_ht_wt, aes(x = height, y = weight)) +
+  geom_point() + 
+  theme(
+    axis.title.x = element_text(size=14),
+    axis.title.y = element_text(size=14), 
+    axis.text.x = element_text(size = 14), 
+    axis.text.y = element_text(size = 14)
+  ) + theme_bw()
+```
+
+#### Independence of errors
+
+We make sure there is no relationship between the residuals and the $Y$ variable; in other words, $Y$ is independent of errors. Check this assumption by examining a scatterplot of "residuals versus fits"; the correlation should be approximately 0.
+
+#### Equal variances
+
+The variance of the residuals is the same for all values of $Y$. Check this assumption by examining the scatterplot of "residuals versus fits"; the variance of the residuals should be the same across all values of the x-axis. If the plot shows a pattern (e.g., bowtie or megaphone shape), then variances are not consistent, and this assumption has not been met.
+
+Let's first visualize residuals before generating the residuals vs fit plots.
+
+We will begin by fitting a SLR model to data.
+
+```{r,}
+##Let's visualize residuals: 
+fit <- lm(weight ~ height, data = university_ht_wt) # fit the model
+fit
+```
+
+We then obtain the predicted/fitted values and residuals.
+
+```{r}
+university_ht_wt$predicted <- predict(fit)   # Save the fitted/predicted values
+university_ht_wt$residuals <- residuals(fit) # Save the residual values
+head(university_ht_wt)
+```
+
+We make a scatterplot of the data, showing the regression line and the difference between each observed response and the fitted value.
+
+```{r, }
+#Visualize residuals:
+ggplot(university_ht_wt, aes(x = height, y = weight)) +
+  geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +  # regression line  
+  geom_segment(aes(xend = height, yend = predicted), alpha = .2) +  # draw line from point to line
+  geom_point(aes(color = abs(residuals), size = abs(residuals))) +  # observed data, size and colour-scalled 
+  scale_color_continuous(low = "green", high = "red") +          # colour of the points mapped to residual size - green smaller, red larger
+  guides(color = FALSE, size = FALSE) +  ggtitle("Residuals") +                            # Size legend removed
+  geom_point(aes(y = predicted), shape = 1) +
+  theme_bw() + 
+  theme(
+    axis.title.x = element_text(size=14),
+    axis.title.y = element_text(size=14), 
+    axis.text.x = element_text(size = 14), 
+    axis.text.y = element_text(size = 14)
+  )
+
+```
+
+We then generate the residuals vs fit scatterplot.
+
+```{r, }
+#Residuals Vs fitted values
+residuals_fitted<-as.data.frame(cbind(fit$residuals, fit$fitted.values))
+colnames(residuals_fitted)<-c("residuals","fitted")
+
+ggplot(residuals_fitted, aes(x = fitted, y = residuals)) + geom_point() + 
+  theme_bw() + ggtitle("Residuals versus fits") +
+  theme(
+    axis.title.x = element_text(size=14),
+    axis.title.y = element_text(size=14), 
+    axis.text.x = element_text(size = 14), 
+    axis.text.y = element_text(size = 14)
+  )
+```
+
+#### Normality of errors
+
+The residuals must be approximately normally distributed. Check this assumption by examining a normal probability plot (Q-Q plot); the observations should be near the line. You can also examine a histogram of the residuals; it should be approximately normally distributed.
+
+```{r, }
+##Normal Q-Q plot: 
+plot(fit, which = 2)
+```
+
+#### [Research Questions on the student height data]{.underline}
+
+#### Is height a significant linear predictor of weight?
+
+The regression model that describes the relationship between $weight$ and $height$ variables in the :
+
+$$
+weight = \beta_0 + \beta_1 \cdot height + \epsilon
+$$
+
+The hypotheses we are testing are:
+
+$$
+H_0: \beta_1 = 0 
+$$
+
+$$
+H_A: \beta_1 \neq 0
+$$
+
+We compute a *t-statistic*, given by
+
+$$
+t = \frac{\hat{\beta_1} - 0} {SE(\hat{\beta_1)}}
+$$
+
+which measures the number of standard deviations that $\hat\beta_1$ is away from 0.
+
+If there really is no relationship between $X$ and $Y$ , then we expect that the *t-statistic* will have a *t*-distribution with *n*−2 degrees of freedom. The *t*-distribution has a bell shape and for values of *n* greater than approximately 30 and is quite similar to the standard normal distribution. Consequently, it is a simple matter to compute the probability of observing any number equal to *\|t\|* or larger in absolute value, assuming $\beta_1 = 0$. We call this probability the p-value. Roughly speaking, we interpret the p-value as follows: a small p-value indicates that it is unlikely to observe such a substantial association between the predictor and the response due to chance, in the absence of any real association between the predictor and the response.
+
+We obtain the model summary from the previous fit of model to the (presumably random) sample from the population:
+
+```{r}
+summary(fit)
+```
+
+The regression equation for this fit becomes: $$
+weight = -222.48 + 5.49 *height
+$$
+
+since the slope ($\beta_1$) is 5.49, the intercept ($\beta_0$) is -222.
+
+The test for the slope has a p-value of less than 0.001. Therefore, with a significance level of 5%, we can conclude that there is enough evidence to suggest that height is a significant linear predictor of weight.
+
+Differently stated, **an increase of one inch in height is associated with --- on average --- an increase of 5.488 lbs in weight.**
+
+Does $\beta_0$ have a meaningful interpretation?
+
+The intercept is -222. Therefore, when height is equal to 0, then a person's weight is predicted to be -222 pounds. It is also not possible for someone to have a height of 0 inches. Therefore, the intercept does not have a valid meaning.
+
+#### What's the (95%?) confidence interval for the population slope?
+
+A 95% confidence interval is defined as a range of values such that with 95% interval probability, the range will contain the true unknown value of the parameter. For linear regression, the 95% confidence interval for $\beta_1$ approximately takes the form $$
+\hat\beta_1 \pm t_\frac{\alpha}{2} SE(\hat\beta_1)
+$$
+
+That is, there is approximately a 95% chance that the interval will contain the true value of $\beta_1$
+
+In the case of the student height-weight data, the 95% confidence interval for $\beta_1$ (and $\beta_0$) can be obtained by the $R$ function $confint()$:
+
+```{r}
+confint(fit)
+```
+
+#### If a student is 70 inches, what weight could we expect?
+
+We substitute the value 70 in the regression equation for the fit $$
+weight = -222.48 + 5.49 * height
+$$
+
+to obtain: $$
+weight = -222.48 + 5.49* 70
+$$
+
+```{r}
+weight <- coef(fit)[1] + coef(fit)[2]*70
+names(weight)<-NULL
+weight
+```
+
+For a student with a height of 70 inches, we would expect a weight of 161.82 pounds.
+
+We can use the $predict()$ function to produce confidence intervals and prediction intervals for the prediction of $weight$ for a given value of $height$. The prediction interval for the height of 70 inches becomes:
+
+```{r, purl=FALSE, warning=FALSE}
+predict(fit, data.frame(height = 70), interval = "prediction")
+
+```
+
+#### Learning Check!
+
+The $Auto$ data set in the $ISLR2$ package contains data for gas mileage, horsepower, and other information for 392 vehicles. Perform a simple linear regression with `mpg` as the response and `horsepower` as the predictor. Print out the results of the fit. Comment on the output. For example:
+
+1.  Is there a relationship between the predictor and the response?
+2.  How strong is the relationship between the predictor and the response?
+3.  Is the relationship between the predictor and the response positive or negative?
+4.  On average, by how much does the mpg change for a unit change in horsepower?
+5.  What is the predicted mpg associated with a horsepower of 98? What is the associated 95% prediction interval?
+6.  Were the model assumptions met?
+
+## Multiple Linear Regression
+
+### Model definition
+
+Simple linear regression is a useful approach for predicting a response on the basis of a single predictor variable. However, in practice we often have more than one predictor.
+
+A multiple linear model takes the form:
+
+$$
+Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_pX_p + \epsilon
+$$
+
+where $X_j$ represents the *j*th predictor and $\beta_j$ quantifies the association between that variable and the response. We interpret $\beta_j$ as the average effect on $Y$ of a one unit increase in $X_j$, **holding all other predictors fixed**.
+
+As was the case in the simple linear regression setting, the regression coefficients $\beta_0, \beta_1, ..., \beta_p$ in the above equation are unknown, and must be estimated.
+
+Given estimates $\hat\beta_0, \hat\beta_1, ..., \hat\beta_p$, we can make predictions using the formula
+
+$$
+\hat{y} = \hat\beta_0 + \hat\beta_1x_1 + \hat\beta_2x_2 + ... + \hat\beta_px_p
+$$
+
+The parameters are estimated using the same least squares approach that we saw in the context of simple linear regression, where we choose $\beta_0, \beta_1,...,\beta_p$ to minimize the sum of squared residuals, RSS.
+
+### Case Study 2: Does smoking during pregnancy affect birth weight?
+
+Researchers (Daniel, 1999) interested in answering the above research question collected the following [data](https://figshare.com/ndownloader/files/31122502) on a random sample of n = 32 births:
+
+-   Response ($Y$): birth weight ($Wgt$) in grams of baby
+-   Potential predictor ($X_1$): length of gestation ($Gest$) in weeks
+-   Potential predictor ($X_2$): Smoking status of mother, $Smoke$ (yes or no)
+
+```{r}
+birth_smokers<-read_csv(file = "https://figshare.com/ndownloader/files/31122502")
+head(birth_smokers)
+#knitr::kable(birth_smokers[1:5,], align = "ll", "simple")
+```
+
+We first convert the $Smoke$ variable to a factor with two levels:
+
+```{r,}
+birth_smokers = transform(birth_smokers, Smoke = factor(ifelse(birth_smokers$Smoke == 1, "Smoker", "NonSmoker")))
+head(birth_smokers)
+#knitr::kable(birth_smokers[1:5,], align = "ll", "simple")
+```
+
+We make "NonSmoker" the reference/baseline, such that value 0 is for smokers when $R$ creates the dummy variable:
+
+```{r,}
+birth_smokers <- birth_smokers %>%
+  mutate(Smoke = relevel(Smoke, ref = "NonSmoker"))
+```
+
+#### Qualitative predictors: dummy variables are smart!
+
+In our discussion so far, we have assumed that all variables in our linear regression model are *quantitative*. But in practice, this is not necessarily the case; often some predictors are *qualitative* (factors). We will create a ***dummy*** (or ***indicator***) variable that takes on two possible numerical values (levels) of a factor. For example, based on the $Smoke$ variable, we can create a new variable that takes the form
+
+$$
+\mathrm{x_i} = \begin{cases}
+    1 & \text{if ith mother smoked} \\
+    0 & \text{if ith mother did not smoke,}
+\end{cases}
+$$
+
+and use this variable as a predictor in the regression equation. $R$ will automatically create the indicator variable.
+
+First, let's obtain a scatter-plot matrix of the data:
+
+```{r,}
+pairs(birth_smokers, pch = 19, lower.panel = NULL)
+```
+
+which suggests, not surprisingly, that there is a positive linear relationship between length of gestation and birth weight. That is, as the length of gestation increases, the birth weight of babies tends to increase. It is hard to see if any kind of (marginal) relationship exists between birth weight and smoking status, or between length of gestation and smoking status.
+
+The important question remains --- **after taking into account length of gestation, is there a significant difference in the average birth weights of babies born to smoking and non-smoking mothers?**
+
+A model with one binary predictor and one quantitative predictor that helps us answer the question is:
+
+$Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \epsilon$
+
+And for individual observations:
+
+$y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i$
+
+where:
+
+-   $y_i$ is the weight of baby *i*
+-   $x_{i1}$ is length of gestation of baby *i*
+-   $x_{i2}$ is a binary variable coded as a 1, if the baby's mother smoked during pregnancy and 0, if she did not
+
+and of course the independent error terms $\epsilon_i$ follow a normal distribution with mean 0 and equal variance $\sigma^2$.
+
+Our dummy variable for $Smoke$ ($X_2$) becomes:
+
+$$
+\mathrm{x_{i2}} = \begin{cases}
+    1 & \text{if ith mother smokes} \\ 
+    0 & \text{if ith mother does not smoke,}
+\end{cases}
+$$
+
+and the resulting regression equation becomes:
+
+$$
+\mathrm{y_i} = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} \epsilon_i = \begin{cases}
+    \beta_0 + \beta_1x_{i1} + \beta_2 + \epsilon_i & \text{if ith mother smokes} \\ 
+    \beta_0  + \beta_1x_{i1}  +  \epsilon_i & \text{if ith mother does not smoke,}
+\end{cases}
+$$
+
+Now we interpret coefficients as follows:
+
+-   $\beta_1$ is the average change (increase) in the response variable (birth weight) for every unit increase in the quantitative predictor $X_1$, the gestation length, for both groups (smokers and non-smokers).
+
+-   $\beta_2$ is the average difference in birth weight between mothers who smoke and non-smokers, after accounting for differences due to length of gestation, *i.e* for fixed (any) values of $X_1$
+
+We now answer the following research question: ***Is there a significant difference in mean birth weights for the two groups, after taking into account length of gestation?***
+
+We test the null hypothesis that $\beta_2 = 0$.
+
+We fit a multiple linear regression model below:
+
+```{r,}
+fit4 <- lm(Wgt ~ Gest + Smoke, data = birth_smokers)
+summary(fit4)
+```
+
+From the above output, the regression equation becomes:
+
+$$
+Wgt = -2389.57 + 143.10*Gest - 244.54*Smoke
+$$
+
+We also observe from the output that the p-value associated with $\beta_2$ is less than 0.01. At just about any significance level, we can reject the null hypothesis $H_0: \beta_2 = 0$ in favor of the alternative hypothesis $H_a: \beta_2 \neq 0$.
+
+There is sufficient evidence to conclude that there is a statistically significant difference in the mean birth weight of all babies of smoking mothers and the mean birth weight of babies of all non-smoking mothers, after taking into account length of gestation. In fact, the negative value of $\beta_2$ implies that smoking is associated with a mean reduction of birth weight of about 245 grams.
+
+## Conclusions
+
+-   We can describe the relationship between one response and one or more (quantitative and/or categorical) predictor variables using a linear regression model.
+
+-   However, model assumptions for a linear relationship must be met.
+
+-   Model coefficients estimate the average effect of a predictor on the response variable.

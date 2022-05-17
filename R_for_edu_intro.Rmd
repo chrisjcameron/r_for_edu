@@ -1,19 +1,19 @@
 ---
-title: "R for Educators"
+title: "Data Analysis with R for Educators"
 author: |
   | Cornell Center for Advanced Computing
   | and Ohio Supercomputer Center
 date: '2022-05-17'
 output:
   slidy_presentation: default
-subtitle: XSEDE Workshop Series
+subtitle: XSEDE Workshop 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## XSEDE Acknowledgement 
+## XSEDE Code of Conduct 
 
 ## Terminology Slide
 
@@ -21,8 +21,8 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Workshop Questions
 
 1. What is R? 
-2. When is R helpful?
-3. What features make R worth learning?
+2. When is R the right choice for data analysis?
+3. What features make R useful for educators?
 4. Where can I get more information?
 
 
@@ -110,7 +110,7 @@ df$face_color[which(df$software=='R')] = 'cornflowerblue'
   + theme_bw()
   + theme(
     axis.text.y=element_markdown(color=df$face_color, size=16),
-    axis.text.x=element_markdown(size=16)
+    axis.text.x.bottom=element_markdown(size=16)
   )
   + ylab("")
   + xlab("Year")
@@ -308,7 +308,7 @@ knitr::include_graphics(path="images/r_console.png")
 - Tip: If you want to install RStudio locally, install R and _then_  install RStudio 
 
 - RStudio Cloud [https://rstudio.cloud](https://rstudio.cloud) is a hosted version
-of RStudo with the same interface.
+of RStudio with the same interface.
 
    - **We will use RStudio Cloud today, so no installation is needed.**
 
@@ -325,9 +325,13 @@ knitr::include_graphics(path="images/rstudio.png")
 
 2. Login (signup if you haven't yet) already
 
-3. Locate the tab labled `Console` in left pane (unless you have changed the layout)
+3. Project will start up, this takes a few moments.  
 
-4. the `>` symbol near the bottom of the console window is the *prompt*. 
+4. You can indicate your 
+
+5. Locate the tab labled `Console` in left pane (unless you have changed the layout)
+
+6. the `>` symbol near the bottom of the console window is the *prompt*. 
    - Click to the right of the prompt and type `2 + 2`, then press `return`
 
 ```{r echo=TRUE, fig.align='center', out.width="95%"}
