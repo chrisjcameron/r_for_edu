@@ -76,6 +76,8 @@ We saw this content already, in the form of comments in an R script file. The te
 -   `x || y` x or y (returns TRUE or FALSE, use in if conditions)
 -   `x && y` x and y (returns TRUE or FALSE, use in if conditions)
 
+see `?base::Logic` for details.
+
 #### Try it:
 
 We can try the code right in the notebook. This is an R code chunk (note that it starts with `{r}` ).
