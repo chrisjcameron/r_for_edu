@@ -205,7 +205,7 @@ It is important to make sure that your data is represented by the correct R data
 **Most common data types**
 
 |       Type | Description                                                                 |
-|---------------------:|--------------------------------------------------|
+|-----------:|-----------------------------------------------------------------------------|
 |    numeric | 3, 5.2, etc                                                                 |
 |    boolean | TRUE, FALSE                                                                 |
 |  character | (i.e. string) "cat", "dog"                                                  |
